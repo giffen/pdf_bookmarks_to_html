@@ -6,7 +6,7 @@ global page_num_library
 global file_name
 
 # receives a PDffileReader.getOutlines() object and converts it into a list of title
-def build_nav(outline, tab):
+def build_nav(outline):
 	output = ""
 	for obj in outline:
 		if isinstance(obj, pdf.Destination):
@@ -14,10 +14,10 @@ def build_nav(outline, tab):
 			page_num = page_num_library[obj.page.idnum]+1
 			page_top = obj.top
 			link = "<a href='" + file_name + "#page=" + str(page_num) + "&pagemode=none'>"
-			output += "<li>" + tab + link + chap_title + "</a></li>"
+			output += "<li>" + link + chap_title + "</a></li>"
 
 		elif isinstance(obj, list):
-			output += "<ul>" + build_nav(obj, tab+"\t")
+			output += "<ul>" + build_nav(obj)
 	
 	return output + "</ul>"
 
@@ -55,7 +55,7 @@ for fileName in glob.glob("pdf/*.pdf"):
 	docInfo = inputFile.getDocumentInfo().title
 	docOutline = inputFile.getOutlines()
 
-	output = build_nav(docOutline,"")
+	output = build_nav(docOutline)
 
 	f = open("output.html", "a")
 
