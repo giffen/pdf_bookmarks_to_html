@@ -13,7 +13,7 @@ def build_nav(outline):
 			chap_title = obj.title.replace(u'\u2013', '-').replace(u'\u2014', '-')
 			page_num = page_num_library[obj.page.idnum]+1
 			page_top = obj.top
-			link = "<a href='" + file_name + "#page=" + str(page_num) + "&pagemode=none'>"
+			link = "<a href='" + file_name + "#page=" + str(page_num) + "&pagemode=none' target='publication'>"
 			output += "<li>" + link + chap_title + "</a></li>"
 
 		elif isinstance(obj, list):
