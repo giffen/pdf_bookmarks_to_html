@@ -6,20 +6,21 @@ global page_num_library
 global file_name
 
 # receives a PDffileReader.getOutlines() object and converts it into a list of title
-def build_nav(outline,tab,_result=None):
-	if _result is None:
-		_result = []
-
-	for obj in outline:	
+def build_nav(outline, tab):
+	output = ""
+	for obj in outline:
 		if isinstance(obj, pdf.Destination):
 			chap_title = obj.title.replace(u'\u2013', '-').replace(u'\u2014', '-')
 			page_num = page_num_library[obj.page.idnum]+1
 			page_top = obj.top
 			link = "<a href='" + file_name + "#page=" + str(page_num) + "&pagemode=none'>"
-			_result.append( "<li>" + link + chap_title + "</a></li>")
+			output += "<li>" + tab + link + chap_title + "</a></li>"
+
 		elif isinstance(obj, list):
-			build_nav(obj,tab+1, _result)
-	return _result
+			output += "<ul>" + build_nav(obj, tab+"\t")
+	
+	return output
+
 
 # receives the PDFFIleReader object and returns a library or page.idnums : page numbers
 def setup_page_id_to_num(inputFile, pages=None, _result=None, _num_pages=None):
@@ -38,6 +39,7 @@ def setup_page_id_to_num(inputFile, pages=None, _result=None, _num_pages=None):
 		_num_pages.append(1)
 	return _result
 
+# loop over pdf folder
 for fileName in glob.glob("pdf/eacf_air.pdf"):
 	
 	file_name = fileName
@@ -47,12 +49,13 @@ for fileName in glob.glob("pdf/eacf_air.pdf"):
 	docInfo = inputFile.getDocumentInfo().title
 	docOutline = inputFile.getOutlines()
 
-	output = build_nav(docOutline,0)
+	output = build_nav(docOutline,"")
 
 	f = open("output.html", "w")
 
-	for x in output:
-		f.write(x.encode('utf-8') + "\n")
+	#for x in output:
+	#	f.write(x.encode('utf-8') + "\n")
+	f.write(output.encode('utf-8'))
 
 	f.close()
 
