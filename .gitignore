@@ -2,6 +2,7 @@
 ###################
 pdf/
 *.pdf
+*.html
 test.py
 ez_install.py
 PDF_dump.txt
