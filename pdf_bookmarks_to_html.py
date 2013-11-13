@@ -1,4 +1,4 @@
-import glob
+import glob, os
 from PyPDF2 import PdfFileReader, pdf
 
 #stores a dictionary of PageID : PageNumber pairs.
@@ -19,7 +19,7 @@ def build_nav(outline, tab):
 		elif isinstance(obj, list):
 			output += "<ul>" + build_nav(obj, tab+"\t")
 	
-	return output
+	return output + "</ul>"
 
 
 # receives the PDFFIleReader object and returns a library or page.idnums : page numbers
@@ -39,8 +39,14 @@ def setup_page_id_to_num(inputFile, pages=None, _result=None, _num_pages=None):
 		_num_pages.append(1)
 	return _result
 
+# delete output if it already exists
+try:
+    os.remove("output.html")
+except OSError:
+    pass
+
 # loop over pdf folder
-for fileName in glob.glob("pdf/eacf_air.pdf"):
+for fileName in glob.glob("pdf/*.pdf"):
 	
 	file_name = fileName
 	inputFile = PdfFileReader(open(file_name, "rb"))
@@ -51,7 +57,7 @@ for fileName in glob.glob("pdf/eacf_air.pdf"):
 
 	output = build_nav(docOutline,"")
 
-	f = open("output.html", "w")
+	f = open("output.html", "a")
 
 	#for x in output:
 	#	f.write(x.encode('utf-8') + "\n")
