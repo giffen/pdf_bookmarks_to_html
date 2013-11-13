@@ -38,7 +38,7 @@ def setup_page_id_to_num(inputFile, pages=None, _result=None, _num_pages=None):
 		_num_pages.append(1)
 	return _result
 
-for fileName in glob.glob("pdf/*.pdf"):
+for fileName in glob.glob("pdf/eacf_air.pdf"):
 	
 	file_name = fileName
 	inputFile = PdfFileReader(open(file_name, "rb"))
