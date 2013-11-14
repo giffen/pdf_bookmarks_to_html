@@ -60,7 +60,7 @@ for fileName in glob.glob("pdf/*.pdf"):
 
 	output = build_nav(docOutline)
 
-	f = open("eacf.html", "a")
+	f = open("output.html", "a")
 
 	#for x in output:
 	#	f.write(x.encode('utf-8') + "\n")
