@@ -1,19 +1,22 @@
-import glob, os
+import glob, os, time
 from PyPDF2 import PdfFileReader, pdf
 
 #stores a dictionary of PageID : PageNumber pairs.
 global page_num_library
 global file_name
+global ts
 
 # receives a PDffileReader.getOutlines() object and converts it into a list of title
 def build_nav(outline):
 	output = ""
+	ts = 0
 	for obj in outline:
 		if isinstance(obj, pdf.Destination):
 			chap_title = obj.title.replace(u'\u2013', '-').replace(u'\u2014', '-')
 			page_num = page_num_library[obj.page.idnum]+1
 			page_top = obj.top
-			link = "<a href='" + file_name + "#page=" + str(page_num) + "&pagemode=none' target='publication'>"
+			ts += 1
+			link = "<a href='pubs/ENV/EACF/" + file_name + "?t=" + str(ts) + "#page=" + str(page_num) + "&amp;pagemode=none&amp;view=FitH' target='publication'>"
 			output += "<li>" + link + chap_title + "</a></li>"
 
 		elif isinstance(obj, list):
@@ -48,8 +51,8 @@ except OSError:
 # loop over pdf folder
 for fileName in glob.glob("pdf/*.pdf"):
 	
-	file_name = fileName
-	inputFile = PdfFileReader(open(file_name, "rb"))
+	file_name = os.path.basename(fileName)
+	inputFile = PdfFileReader(open(fileName, "rb"))
 	page_num_library = setup_page_id_to_num(inputFile)
 
 	docInfo = inputFile.getDocumentInfo().title
@@ -57,7 +60,7 @@ for fileName in glob.glob("pdf/*.pdf"):
 
 	output = build_nav(docOutline)
 
-	f = open("output.html", "a")
+	f = open("eacf.html", "a")
 
 	#for x in output:
 	#	f.write(x.encode('utf-8') + "\n")

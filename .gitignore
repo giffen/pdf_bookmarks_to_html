@@ -3,7 +3,7 @@
 pdf/
 *.pdf
 *.html
-output.html
+*.htm
 test.py
 ez_install.py
 PDF_dump.txt
