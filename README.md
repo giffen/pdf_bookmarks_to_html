@@ -6,8 +6,8 @@ Program pulls the bookmarks from all the PDFs contained in a folder.  The boomka
 [The program is heavily based off this Stack Overflow question.](http://stackoverflow.com/questions/7602639/pypdf-merge-and-write-issue)
 
 ## Requirements
-*Python 2.7
-*PyPDF2 (or PyPDF)
+* Python 2.7
+* PyPDF2 (or PyPDF)
 
 ## Usage
 Create a PDF folder and run the script from one folder below that.
