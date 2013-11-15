@@ -1,7 +1,7 @@
 # PDF Bookmarks to HTML
 
 ## Description
-Program pulls the bookmarks from all the PDFs contained in a folder.  The boomkarks are formatted into a nested unordered list with Bootstrap class hooks.
+Program pulls the bookmarks from all the PDFs contained in a folder.  The bookmarks are formatted into a nested unordered list with Bootstrap class hooks.
 
 [The program is heavily based off this Stack Overflow question.](http://stackoverflow.com/questions/7602639/pypdf-merge-and-write-issue)
 
