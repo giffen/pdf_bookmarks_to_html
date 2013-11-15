@@ -1,5 +1,4 @@
 # PDF Bookmarks to HTML
-=====================
 
 ## Description
 Program pulls the bookmarks from all the PDFs contained in a folder.  The boomkarks are formatted into a nested unordered list with Bootstrap class hooks.
